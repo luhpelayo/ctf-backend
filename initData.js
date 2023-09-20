@@ -5,6 +5,7 @@
 const { DataTypes } = require('sequelize');
 const Categoria = require('./models/Categoria.js');
 const Dificultad = require('./models/Dificultad.js');
+const Rol = require('./models/Rol.js');
 // Define una función para inicializar datos
 async function initData() {
   try {
@@ -26,6 +27,12 @@ async function initData() {
       { nombre: 'H', descripcion: 'Difícil' },
       // ... otras dificultades ...
     ]);
+
+        // Agregar roles a la base de datos
+        await Rol.bulkCreate([
+          { nombre: 'admin' },
+          { nombre: 'participante' },
+        ]);
 
     console.log('Datos iniciales agregados con éxito.');
   } catch (error) {

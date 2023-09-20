@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../db.js'); // Importa la instancia de Sequelize
 const bcrypt = require('bcrypt');
-
+const Rol = require('./Rol.js');
 const User = sequelize.define('user', {
   id: {
     type: DataTypes.INTEGER,
@@ -30,8 +30,13 @@ const User = sequelize.define('user', {
       this.setDataValue('password', hashedPassword);
     },
   },
+  idRol: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
 }, {
   timestamps: false, // Si no necesitas marcas de tiempo en tu modelo
-});
+  });
+  User.belongsTo(Rol, { foreignKey: 'idRol' });
 
 module.exports = User;

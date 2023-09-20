@@ -9,6 +9,7 @@ const preguntaRoute = require('./routes/preguntaRoute');
 const submisionRoute = require('./routes/submisionRoute');
 const perfilUsuarioRoute = require('./routes/perfilUsuarioRoute');
 const dificultadRoute = require('./routes/dificultadRoute');
+const rolRoute = require('./routes/rolRoute');
 const sequelize = require('./db.js');
 const cors = require('cors'); 
 const helmet = require('helmet'); // Agrega el paquete helmet para encabezados de seguridad
@@ -38,6 +39,7 @@ app.use('/pregunta', preguntaRoute);
 app.use('/submision', submisionRoute);
 app.use('/dificultad', dificultadRoute);
 app.use('/perfilUsuario', perfilUsuarioRoute);
+app.use('/rol', rolRoute);
 
 
 sequelize
