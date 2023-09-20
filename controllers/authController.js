@@ -9,7 +9,7 @@ const jwtSecret = JWT_TOKEN;
 
 async function registerUser(req, res) {
   try {
-    const { username, password, email } = req.body;
+    const { username, password, email, idRol } = req.body;
 
     const existingUserEmail = await User.findOne({ where: { email } });
     const existingUserUsername = await User.findOne({ where: { username } });
@@ -22,7 +22,7 @@ async function registerUser(req, res) {
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
-    const newUser = await User.create({ username, password: hashedPassword, email });
+    const newUser = await User.create({ username, password: hashedPassword, email, idRol });
 
     const token = jwt.sign({ user: newUser }, jwtSecret, { expiresIn: '1h' });
 
@@ -32,6 +32,7 @@ async function registerUser(req, res) {
     res.status(500).json({ error: 'No se pudo registrar el usuario' });
   }
 }
+
 
 async function loginUser(req, res) {
   try {
