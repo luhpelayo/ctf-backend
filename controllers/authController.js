@@ -42,14 +42,16 @@ async function loginUser(req, res) {
     if (!user) {
       return res.status(401).json({ error: 'Credenciales incorrectas' });
     }
-
+  
     const isPasswordValid = await bcrypt.compare(password, user.password);
+    console.log('Contraseña enviada:', password);
+    console.log('Contraseña enviada:', user.password);
 
     if (isPasswordValid) {
       const token = jwt.sign({ user }, jwtSecret, { expiresIn: '1h' });
       res.status(200).json({ token });
     } else {
-      res.status(401).json({ error: 'Credenciales incorrectas' });
+      res.status(401).json({ error: 'Credenciales incorrectas password' });
     }
   } catch (error) {
     console.error(error);
