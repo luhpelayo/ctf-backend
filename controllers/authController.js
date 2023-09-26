@@ -42,11 +42,12 @@ async function loginUser(req, res) {
     if (!user) {
       return res.status(401).json({ error: 'Credenciales incorrectas' });
     }
-  
-    const isPasswordValid = await bcrypt.compare(password, user.password);
-    console.log('Contraseña enviada:', password);
-    console.log('Contraseña enviada:', user.password);
 
+    // Convertir la contraseña enviada a un hash de bcrypt
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    console.log('Contraseña enviada body:', password); // Imprime la contraseña original
+    console.log('Contraseña enviada base de datos:', user.password); // Imprime la contraseña almacenada en la base de datos
+    
     if (isPasswordValid) {
       const token = jwt.sign({ user }, jwtSecret, { expiresIn: '1h' });
       res.status(200).json({ token });
@@ -58,7 +59,6 @@ async function loginUser(req, res) {
     res.status(500).json({ error: 'Error en el inicio de sesión' });
   }
 }
-
 function protectedRoute(req, res) {
   res.json({ message: 'Ruta protegida, solo para usuarios autenticados' });
 }

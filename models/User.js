@@ -23,12 +23,6 @@ const User = sequelize.define('user', {
   password: {
     type: DataTypes.STRING,
     allowNull: false,
-    set(password) {
-      // Hash y salting de la contraseña antes de almacenarla en la base de datos
-      const saltRounds = 10;
-      const hashedPassword = bcrypt.hashSync(password, saltRounds);
-      this.setDataValue('password', hashedPassword);
-    },
   },
   idRol: {
     type: DataTypes.INTEGER,
